@@ -18,5 +18,11 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
+
+// * 添加scoped之后，父组件的可以影响子组件的样式
+//.iconfont{
+//  font-size: 26px;
+//  color: red;
+//}
 </style>
