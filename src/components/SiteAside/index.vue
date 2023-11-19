@@ -14,7 +14,7 @@ export default {
 
 <template>
   <div class="site-aside-container">
-    <Avatar url="https://tse2-mm.cn.bing.net/th/id/OIP-C.JuSM25g1b2eEYu-2KbGpVwHaHI?rs=1&pid=ImgDetMain" />
+      <Avatar url="https://tse2-mm.cn.bing.net/th/id/OIP-C.JuSM25g1b2eEYu-2KbGpVwHaHI?rs=1&pid=ImgDetMain" :size="199"/>
     <h1 class="title">colourful 的个人空间</h1>
     <Menu/>
     <Contact/>
@@ -35,6 +35,9 @@ export default {
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
+}
+.avatar_img{
+  margin: 0 auto;
 }
 .iconfont {
   margin: 0 auto;
