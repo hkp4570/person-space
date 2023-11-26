@@ -24,8 +24,10 @@ export default function (options = {}){
     const typeClassName = styles[`message-${type}`]; //类型样式名
     div.className = `${styles.message} ${typeClassName}`;
 
-    if(getComputedStyle(container).position === 'static'){
-        container.style.position = 'relative';
+    if(options.container){
+        if(getComputedStyle(container).position === 'static'){
+            container.style.position = 'relative';
+        }
     }
     container.appendChild(div);
     div.clientHeight;
