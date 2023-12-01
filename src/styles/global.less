@@ -1,5 +1,8 @@
-
 @import "./var.less";
+
+html, body {
+  height: 100%;
+}
 
 html {
   color: @words;
@@ -7,6 +10,7 @@ html {
   "微软雅黑", sans-serif;
   //overflow: hidden;
 }
+
 body {
   //overflow: hidden;
   margin: 0;
@@ -15,14 +19,17 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+
   &:hover {
     color: @primary;
   }
 }
-ul, h1, h2, h3, h4, h5, h6, li{
+
+ul, h1, h2, h3, h4, h5, h6, li {
   margin: 0;
   padding: 0;
 }
-li{
+
+li {
   list-style: none;
 }

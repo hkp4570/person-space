@@ -28,6 +28,7 @@ export default {
 
 <style scoped lang="less">
 .app-container {
+  height: 100%;
   .aside {
     width: 250px;
     height: 100%;

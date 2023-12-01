@@ -20,6 +20,7 @@ export default {
 
 <style scoped lang="less">
 .layout-container{
+  height: 100%;
   display: flex;
   .left,
   .right {
