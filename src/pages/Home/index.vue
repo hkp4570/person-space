@@ -1,8 +1,8 @@
 <template>
-  <div class="home-container" ref="homeContainer">
-    <ul class="carousel-container" :style="{marginTop}">
+  <div class="home-container" ref="homeContainer" @wheel="handleWheel">
+    <ul class="carousel-container" :style="{marginTop}" @transitionend="handleTransitionEnd">
       <li v-for="item in banners" :key="item.id">
-        <CarouselItem/>
+        <CarouselItem :carousel="item" />
       </li>
     </ul>
     <!--    上按钮-->
@@ -35,6 +35,7 @@ export default {
       banners: [],
       index: 1,
       containerHeight: 0,
+      switching: false,
     }
   },
   created() {
@@ -44,6 +45,10 @@ export default {
   },
   mounted() {
     this.containerHeight = this.$refs.homeContainer.clientHeight;
+    window.addEventListener('resize', this.handleResize);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
   },
   computed: {
     marginTop(){
@@ -53,6 +58,23 @@ export default {
   methods: {
     switchTo(i){
       this.index = i;
+    },
+    handleWheel(e){
+      if(this.switching) return;
+      if(e.deltaY > 5 && this.index < this.banners.length - 1){
+        this.switching = true;
+        this.index++;
+      }
+      if(e.deltaY < -5 && this.index > 0){
+        this.switching = true;
+        this.index--;
+      }
+    },
+    handleTransitionEnd(){
+      this.switching = false;
+    },
+    handleResize(){
+      this.containerHeight = this.$refs.homeContainer.clientHeight;
     }
   }
 }
@@ -71,6 +93,7 @@ export default {
 .carousel-container {
   width: 100%;
   height: 100%;
+  transition: .5s;
 
   li {
     width: 100%;
