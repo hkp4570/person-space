@@ -1,8 +1,8 @@
 <template>
   <div v-loading="isLoading" class="home-container" ref="homeContainer" @wheel="handleWheel">
     <ul class="carousel-container" :style="{marginTop}" @transitionend="handleTransitionEnd">
-      <li v-for="item in banners" :key="item.id">
-        <CarouselItem :carousel="item" />
+      <li v-for="item in data" :key="item.id">
+        <CarouselItem :carousel="item"/>
       </li>
     </ul>
     <!--    上按钮-->
@@ -10,12 +10,12 @@
       <Icon type="arrowUp"/>
     </div>
     <!--    下按钮-->
-    <div v-show="index < banners.length -1" class="icon icon-down" @click="switchTo(index + 1)">
+    <div v-show="index < data.length -1" class="icon icon-down" @click="switchTo(index + 1)">
       <Icon type="arrowDown"/>
     </div>
     <!--  指示器-->
     <ul class="indicator">
-      <li :class="{active: i === index}" v-for="(item, i) in banners" :key="item.id" @click="switchTo(i)"></li>
+      <li :class="{active: i === index}" v-for="(item, i) in data" :key="item.id" @click="switchTo(i)"></li>
     </ul>
   </div>
 </template>
@@ -24,26 +24,20 @@
 import {getBanner} from '@/api/banner.js';
 import CarouselItem from "@/pages/Home/CarouselItem.vue";
 import Icon from "@/components/Icon/index.vue";
+import fetchData from "@/mixins/fetchData";
 
 export default {
+  mixins: [fetchData([])],
   components: {
     CarouselItem,
     Icon,
   },
   data() {
     return {
-      banners: [],
       index: 1,
       containerHeight: 0,
       switching: false,
-      isLoading: true,
     }
-  },
-  created() {
-    getBanner().then(resp => {
-      this.banners = resp;
-      this.isLoading = false;
-    })
   },
   mounted() {
     this.containerHeight = this.$refs.homeContainer.clientHeight;
@@ -53,32 +47,35 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   computed: {
-    marginTop(){
+    marginTop() {
       return -this.index * this.containerHeight + 'px';
     }
   },
   methods: {
-    switchTo(i){
+    switchTo(i) {
       this.index = i;
     },
-    handleWheel(e){
-      if(this.switching) return;
-      if(e.deltaY > 5 && this.index < this.banners.length - 1){
+    handleWheel(e) {
+      if (this.switching) return;
+      if (e.deltaY > 5 && this.index < this.banners.length - 1) {
         this.switching = true;
         this.index++;
       }
-      if(e.deltaY < -5 && this.index > 0){
+      if (e.deltaY < -5 && this.index > 0) {
         this.switching = true;
         this.index--;
       }
     },
-    handleTransitionEnd(){
+    handleTransitionEnd() {
       this.switching = false;
     },
-    handleResize(){
+    handleResize() {
       this.containerHeight = this.$refs.homeContainer.clientHeight;
+    },
+    async fetchData() {
+      return await getBanner();
     }
-  }
+  },
 }
 </script>
 
@@ -147,6 +144,7 @@ export default {
     }
   }
 }
+
 .indicator {
   position: absolute;
   top: 50%;
@@ -154,6 +152,7 @@ export default {
   left: auto;
 
   right: 20px;
+
   li {
     width: 7px;
     height: 7px;
@@ -163,6 +162,7 @@ export default {
     margin-bottom: 10px;
     border: 1px solid #fff;
     box-sizing: border-box;
+
     &.active {
       background: #fff;
     }
