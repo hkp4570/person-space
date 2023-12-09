@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container" ref="homeContainer" @wheel="handleWheel">
+  <div v-loading="isLoading" class="home-container" ref="homeContainer" @wheel="handleWheel">
     <ul class="carousel-container" :style="{marginTop}" @transitionend="handleTransitionEnd">
       <li v-for="item in banners" :key="item.id">
         <CarouselItem :carousel="item" />
@@ -36,11 +36,13 @@ export default {
       index: 1,
       containerHeight: 0,
       switching: false,
+      isLoading: true,
     }
   },
   created() {
     getBanner().then(resp => {
       this.banners = resp;
+      this.isLoading = false;
     })
   },
   mounted() {
