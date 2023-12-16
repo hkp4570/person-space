@@ -13,6 +13,7 @@ const router = new VueRouter({
         {name: 'Home', path: '/', component: Home},
         {name: 'About', path: '/about', component: About},
         {name: 'Blog', path: '/blog', component: Blog},
+        {name: 'CategoryBlog', path: '/blog/cate/:categoryId', component: Blog}, // 动态路由
         {name: 'Message', path: '/message', component: Message},
         {name: 'Project', path: '/project', component: Project},
     ],

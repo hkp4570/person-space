@@ -1,51 +1,23 @@
 <script>
-import RightMenu from "@/pages/Blog/components/RightMenu.vue";
-
+import Layout from "@/components/Layout/index.vue";
+import BlogList from "@/pages/Blog/components/BlogList.vue";
+import BlogCategory from "@/pages/Blog/components/BlogCategory.vue";
 export default {
   components: {
-    RightMenu
+    Layout,
+    BlogList,
+    BlogCategory
   },
-  data() {
-    return {
-      list: [
-        {name: "a", isSelect: false},
-        {name: "b", isSelect: false},
-        {
-          name: "c",
-          isSelect: true,
-          children: [
-            {name: "c-1", isSelect: false},
-            {
-              name: "c-2",
-              isSelect: false,
-              children: [
-                {name: "c-2-1", isSelect: false},
-                {name: "c-2-2", isSelect: false},
-                {name: "c-2-3", isSelect: false},
-                {name: "c-2-4", isSelect: false},
-              ],
-            },
-            {name: "c-3", isSelect: false},
-            {name: "c-4", isSelect: false},
-          ],
-        },
-        {name: "d", isSelect: false},
-      ],
-    }
-  },
-  methods: {
-    handleSelect(v) {
-      console.log(v, 'select');
-    }
-  }
 }
 </script>
 
 <template>
-  <div>
-    <RightMenu v-bind:list="list" @select="handleSelect"/>
-  </div>
-
+  <Layout>
+    <BlogList />
+    <template #right>
+      <BlogCategory/>
+    </template>
+  </Layout>
 </template>
 
 <style scoped lang="less">

@@ -21,6 +21,14 @@ export default {
   <ul class="right-menu-container">
     <li v-for="(item,index) in list" v-bind:key="index" @click="handleClick(item)">
       <span v-bind:class="{active: item.isSelect}">{{ item.name }}</span>
+      <span
+          v-if="item.aside"
+          @click="handleClick(item)"
+          class="aside"
+          :class="{ active: item.isSelect }"
+      >
+        {{ item.aside }}
+      </span>
       <RightMenu :list="item.children" :select="handleClick" />
     </li>
   </ul>
@@ -43,5 +51,10 @@ export default {
       font-weight: bold;
     }
   }
+}
+.aside {
+  font-size: 12px;
+  margin-left: 1em;
+  color: @gray;
 }
 </style>
