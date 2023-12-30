@@ -21,13 +21,19 @@ export default {
     },
     handleScroll() {
       this.$bus.$emit('mainScroll', this.$refs.mainContainer);
+    },
+    handleSetMainScroll(scrollTop) {
+      this.$refs.mainContainer.scrollTop = scrollTop;
     }
   },
   mounted() {
+    this.$bus.$on('setMainScroll', this.handleSetMainScroll);
     this.$refs.mainContainer.addEventListener('scroll', this.handleScroll);
   },
-  destroyed() {
+  beforeDestroy() {
+    this.$bus.$emit("mainScroll"); // 页面卸载时回到顶部
     this.$refs.mainContainer.removeEventListener('scroll', this.handleScroll);
+    this.$bus.$off("setMainScroll", this.handleSetMainScroll);
   },
   // 刷新页面回到原先锚点位置
   updated() {

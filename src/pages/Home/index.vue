@@ -57,7 +57,7 @@ export default {
     },
     handleWheel(e) {
       if (this.switching) return;
-      if (e.deltaY > 5 && this.index < this.banners.length - 1) {
+      if (e.deltaY > 5 && this.index < this.data.length - 1) {
         this.switching = true;
         this.index++;
       }
