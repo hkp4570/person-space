@@ -15,35 +15,43 @@ export default {
     BlogTOC,
     BlogComment,
   },
-  methods:{
-    async fetchData(){
+  methods: {
+    async fetchData() {
       return await getBlog(this.$route.params.id);
     },
-    handleScroll(){
+    handleScroll() {
       this.$bus.$emit('mainScroll', this.$refs.mainContainer);
     }
   },
   mounted() {
-    this.$refs.mainContainer.addEventListener('scroll',this.handleScroll);
+    this.$refs.mainContainer.addEventListener('scroll', this.handleScroll);
   },
   destroyed() {
     this.$refs.mainContainer.removeEventListener('scroll', this.handleScroll);
-  }
+  },
+  // 刷新页面回到原先锚点位置
+  updated() {
+    const hash = location.hash;
+    location.hash = "";
+    setTimeout(() => {
+      location.hash = hash;
+    }, 50);
+  },
 }
 </script>
 
 <template>
-<Layout>
-  <div ref="mainContainer" class="main-container" v-loading="isLoading">
-    <BlogDetail :blog="data" v-if="data" />
-    <BlogComment v-if="!isLoading"/>
-  </div>
-  <template #right>
-    <div class="right-container" v-loading="isLoading">
-      <BlogTOC :toc="data.toc" v-if="data" />
+  <Layout>
+    <div ref="mainContainer" class="main-container" v-loading="isLoading">
+      <BlogDetail :blog="data" v-if="data"/>
+      <BlogComment v-if="!isLoading"/>
     </div>
-  </template>
-</Layout>
+    <template #right>
+      <div class="right-container" v-loading="isLoading">
+        <BlogTOC :toc="data.toc" v-if="data"/>
+      </div>
+    </template>
+  </Layout>
 </template>
 
 <style scoped lang="less">
@@ -57,6 +65,7 @@ export default {
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
 .right-container {
   width: 300px;
   height: 100%;
