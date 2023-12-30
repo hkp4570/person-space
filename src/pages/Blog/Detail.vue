@@ -18,14 +18,23 @@ export default {
   methods:{
     async fetchData(){
       return await getBlog(this.$route.params.id);
+    },
+    handleScroll(){
+      this.$bus.$emit('mainScroll', this.$refs.mainContainer);
     }
+  },
+  mounted() {
+    this.$refs.mainContainer.addEventListener('scroll',this.handleScroll);
+  },
+  destroyed() {
+    this.$refs.mainContainer.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>
 
 <template>
 <Layout>
-  <div class="main-container" v-loading="isLoading">
+  <div ref="mainContainer" class="main-container" v-loading="isLoading">
     <BlogDetail :blog="data" v-if="data" />
     <BlogComment v-if="!isLoading"/>
   </div>

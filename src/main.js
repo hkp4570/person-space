@@ -5,6 +5,7 @@ import "./styles/global.less"
 import {showMessage} from "./utils/index"
 import './mock'
 import loading from "@/directives/loading";
+import './eventBus';
 
 Vue.config.productionTip = false
 
