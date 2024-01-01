@@ -5,10 +5,11 @@ import BlogTOC from "@/pages/Blog/components/BlogTOC.vue";
 import BlogComment from "@/pages/Blog/components/BlogComment.vue";
 import fetchData from "@/mixins/fetchData";
 import {getBlog} from "@/api/blog";
+import mainScroll from "@/mixins/mainScroll";
 
 export default {
   name: "Detail",
-  mixins: [fetchData(null)],
+  mixins: [fetchData(null), mainScroll('mainContainer')],
   components: {
     Layout,
     BlogDetail,
@@ -19,21 +20,6 @@ export default {
     async fetchData() {
       return await getBlog(this.$route.params.id);
     },
-    handleScroll() {
-      this.$bus.$emit('mainScroll', this.$refs.mainContainer);
-    },
-    handleSetMainScroll(scrollTop) {
-      this.$refs.mainContainer.scrollTop = scrollTop;
-    }
-  },
-  mounted() {
-    this.$bus.$on('setMainScroll', this.handleSetMainScroll);
-    this.$refs.mainContainer.addEventListener('scroll', this.handleScroll);
-  },
-  beforeDestroy() {
-    this.$bus.$emit("mainScroll"); // 页面卸载时回到顶部
-    this.$refs.mainContainer.removeEventListener('scroll', this.handleScroll);
-    this.$bus.$off("setMainScroll", this.handleSetMainScroll);
   },
   // 刷新页面回到原先锚点位置
   updated() {
