@@ -5,12 +5,14 @@ import "./styles/global.less"
 import {showMessage} from "./utils/index"
 import './mock'
 import loading from "@/directives/loading";
+import lazy from "@/directives/lazy";
 import './eventBus';
 
 Vue.config.productionTip = false
 
 Vue.prototype.$showMessage = showMessage
 Vue.directive('loading', loading);
+Vue.directive('lazy', lazy);
 
 import './api/banner';
 new Vue({

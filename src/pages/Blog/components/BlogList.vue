@@ -3,13 +3,14 @@ import fetchData from "@/mixins/fetchData";
 import {getBlogs} from '@/api/blog';
 import formatDate from '@/utils/formatDate';
 import Pager from "@/components/Pager/index.vue";
+import mainScroll from "@/mixins/mainScroll";
 
 export default {
   name: "BlogList",
   components: {
     Pager,
   },
-  mixins: [fetchData({})],
+  mixins: [fetchData({}), mainScroll('container')],
   computed: {
     // 获取路由信息
     routeInfo() {
@@ -73,7 +74,7 @@ export default {
               id: item.id
             }
           }">
-            <img :src="item.thumb" :alt="item.title" :title="item.title"/>
+            <img v-lazy="item.thumb" :src="item.thumb" :alt="item.title" :title="item.title"/>
           </RouterLink>
         </div>
         <div class="main">
