@@ -1,5 +1,5 @@
 {
-  "name": "hello-world",
+  "name": "user-demo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^2.6.14",
+    "vue-router": "3.5.0",
     "vuex": "3.6.2"
   },
   "devDependencies": {
