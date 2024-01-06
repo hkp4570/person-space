@@ -5,7 +5,7 @@
         <div class="icon">
           <Icon type="github"/>
         </div>
-        <span>colourful</span>
+        <span>{{data?.github}}</span>
       </a>
     </li>
     <li>
@@ -13,7 +13,7 @@
         <div class="icon">
           <Icon type="mail"/>
         </div>
-        <span>1132272123@qq.com</span>
+        <span>{{data?.mail}}</span>
       </a>
     </li>
     <li>
@@ -23,7 +23,7 @@
         <div class="icon">
           <Icon type="qq"/>
         </div>
-        <span>1132272123</span>
+        <span>{{data?.qq}}</span>
       </a>
       <div class="pop">
         <img
@@ -37,7 +37,7 @@
         <div class="icon weixin">
           <Icon type="weixin"/>
         </div>
-        <span>dsfggasas</span>
+        <span>{{data?.weixin}}</span>
       </a>
       <div class="pop">
         <img
@@ -51,11 +51,15 @@
 
 <script>
 import Icon from "@/components/Icon";
+import { mapState } from 'vuex';
 
 export default {
   components: {
     Icon,
   },
+  computed: {
+    ...mapState('setting', ['data'])
+  }
 };
 </script>
 

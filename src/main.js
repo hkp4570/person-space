@@ -7,7 +7,9 @@ import './mock'
 import loading from "@/directives/loading";
 import lazy from "@/directives/lazy";
 import './eventBus';
+import store from '@/store';
 
+store.dispatch('setting/fetchSetting');
 Vue.config.productionTip = false
 
 Vue.prototype.$showMessage = showMessage
@@ -17,6 +19,7 @@ Vue.directive('lazy', lazy);
 import './api/banner';
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app')
 
