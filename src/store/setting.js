@@ -1,4 +1,5 @@
 import { getSetting } from "@/api/setting";
+import {setSiteTitle} from "@/utils/titleController";
 
 export default {
     namespaced: true,
@@ -20,6 +21,9 @@ export default {
             const resp = await getSetting();
             ctx.commit('setLoading', false);
             ctx.commit('setData', resp);
+            if(resp.siteTitle){
+                setSiteTitle(resp.siteTitle);
+            }
         }
     }
 }

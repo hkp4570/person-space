@@ -6,6 +6,7 @@ import BlogComment from "@/pages/Blog/components/BlogComment.vue";
 import fetchData from "@/mixins/fetchData";
 import {getBlog} from "@/api/blog";
 import mainScroll from "@/mixins/mainScroll";
+import {setSiteTitle} from "@/utils/titleController";
 
 export default {
   name: "Detail",
@@ -18,7 +19,9 @@ export default {
   },
   methods: {
     async fetchData() {
-      return await getBlog(this.$route.params.id);
+      const resp = await getBlog(this.$route.params.id);
+      setSiteTitle(resp.title);
+      return resp;
     },
   },
   // 刷新页面回到原先锚点位置
