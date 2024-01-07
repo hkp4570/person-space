@@ -4,13 +4,15 @@ import {getBlogs} from '@/api/blog';
 import formatDate from '@/utils/formatDate';
 import Pager from "@/components/Pager/index.vue";
 import mainScroll from "@/mixins/mainScroll";
+import Empty from "@/components/Empty/index.vue";
 
 export default {
   name: "BlogList",
   components: {
     Pager,
+    Empty,
   },
-  mixins: [fetchData({}), mainScroll('container')],
+  mixins: [fetchData({total:0, rows:[]}), mainScroll('container')],
   computed: {
     // 获取路由信息
     routeInfo() {
@@ -103,7 +105,7 @@ export default {
         </div>
       </li>
     </ul>
-    <!-- 分页放到这里 -->
+    <Empty v-if="data.rows.length === 0 && !isLoading" />
     <Pager
         v-if="data.total"
         :current="routeInfo.page"
