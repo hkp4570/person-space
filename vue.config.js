@@ -7,5 +7,6 @@ module.exports = defineConfig({
         target: '代理地址'
       }
     }
-  }
+  },
+  configureWebpack: require('./webpack.config')
 })
