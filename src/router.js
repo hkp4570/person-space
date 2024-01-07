@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import {setRouterTitle} from "@/utils/titleController";
 import { start, done, configure } from "nprogress";
 import {delay} from '@/utils/delay';
+import NotFound from "@/pages/NotFound.vue";
 
 configure({
     trickleSpeed: 20,
@@ -76,6 +77,11 @@ const router = new VueRouter({
             component: getPageComponent(() => import(/* webpackChunkName: "demo" */ "@/pages/Demo")),
             meta: {title: '组件通信demo'}
         },
+        {
+            name: 'NotFound',
+            path: '*',
+            component: NotFound,
+        }
     ],
     mode: 'history'
 })
